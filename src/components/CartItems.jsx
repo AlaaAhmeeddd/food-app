@@ -3,11 +3,19 @@ import { CartContext } from "../store/cartContext"
 import { TiPlus } from "react-icons/ti";
 import { TiMinus } from "react-icons/ti";
 import { FaTrashAlt } from "react-icons/fa";
+import toast, { Toaster } from 'react-hot-toast';
+
+const notify = (name) => toast.success(`${name} removed from cart!`,{
+  icon: '🗑️',
+  className: 'bg-pink-900! text-white! font-semibold! shadow-none!',
+  removeDelay: 1000,
+})
 
 export default function CartItems() {
     const {items, increaseQuantity, decreaseQuantity, removeItem} = useContext(CartContext)
     return (
         <>
+            <Toaster />
             {items.length === 0 ? (
                 <p className="p-6 text-xl text-slate-900 font-semibold relative top-[50%] translate-y-[-50%] text-center">
                     Your Cart Is Empty Now!!
@@ -30,7 +38,7 @@ export default function CartItems() {
                                     <div className="w-20 h-20 rounded-lg overflow-hidden">
                                         <img src={item.image} alt={item.name} />
                                     </div>
-                                    <FaTrashAlt className="text-lg text-red-600 hover:text-red-700 duration-300 cursor-pointer" onClick={()=> removeItem(item)} />
+                                    <FaTrashAlt className="text-lg text-red-600 hover:text-red-700 duration-300 cursor-pointer" onClick={()=> {removeItem(item); notify(item.name)}} />
                                 </div>
                             </div>
                         </li>

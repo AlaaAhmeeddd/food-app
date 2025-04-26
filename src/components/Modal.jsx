@@ -4,6 +4,13 @@ import { useContext, useState } from "react";
 import { CartContext } from "../store/cartContext";
 import { Link } from "react-router-dom";
 import * as motion from "motion/react-client"
+import toast, { Toaster } from 'react-hot-toast';
+
+const notify = () => toast.success(`Your cart is empty now!`,{
+  icon: '✅',
+  className: 'bg-pink-900! text-white! font-semibold! shadow-none!',
+  removeDelay: 1000,
+})
 
 function Modal({ show, onClose, children }) {
   const { clearCart, totalPrice } = useContext(CartContext)
@@ -25,6 +32,7 @@ function Modal({ show, onClose, children }) {
 
   return (
     <>
+    <Toaster />
       <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/50" />
       <motion.div
         initial={{ right: isClosing ? 0 : "-100%" }}
@@ -53,7 +61,7 @@ function Modal({ show, onClose, children }) {
           </div>
           <div className="flex items-center justify-between px-6">
             <button className="bg-rose-600 text-white px-3 py-1 cursor-pointer rounded-lg hover:bg-rose-700
-             transition-all duration-300 font-semibold mr-2" onClick={clearCart}>
+             transition-all duration-300 font-semibold mr-2" onClick={()=> {clearCart(); notify()}}>
               Clear
             </button>
             <Link to={'sign-in'} className="bg-green-600 text-white px-3 py-1 cursor-pointer rounded-lg hover:bg-green-700

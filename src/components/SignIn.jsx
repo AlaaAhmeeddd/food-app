@@ -9,7 +9,7 @@ import useForm from '../hooks/useForm';
 
 export default function SignIn() {
   const { totalPrice } = useContext(CartContext);
-  const { formData, errors, handleChange, handleSubmit } = useForm({
+  const { formData, errors, handleChange, handleSubmit, Toaster } = useForm({
     name: "",
     email: "",
     password: "",
@@ -19,6 +19,7 @@ export default function SignIn() {
 
   return (
     <div className='bg-[#F9F9F7] h-full'>
+      <Toaster />
       <Container>
         <MainTitle title="Sign In" description="Please enter your personal information to checkout." />
         <div className='bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 w-full md:w-2/3 mx-auto'>

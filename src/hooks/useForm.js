@@ -1,4 +1,11 @@
 import { useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
+
+const notify = () => toast.success(`Signed in successfuly!`,{
+  icon: '👏',
+  className: 'bg-pink-900! text-white! font-semibold! shadow-none!',
+  removeDelay: 1000,
+})
 
 export default function useForm(initialValues) {
   const [formData, setFormData] = useState(initialValues);
@@ -34,6 +41,7 @@ export default function useForm(initialValues) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      notify()
       console.log(formData);
     }
   };
@@ -43,5 +51,6 @@ export default function useForm(initialValues) {
     errors,
     handleChange,
     handleSubmit,
+    Toaster,
   };
 }
